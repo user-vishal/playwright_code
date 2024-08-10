@@ -1,0 +1,26 @@
+{
+  "name": "playwrightautomation",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "postinstall": "npx playwright install",
+    "test": "npx playwright test",
+    "report": "npx playwright show-report"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@playwright/test": "^1.45.1",
+    "@types/node": "^20.14.9",
+    "@types/randomstring": "^1.1.8",
+    "@types/string-format": "^2.0.0",
+    "allure-commandline": "^2.29.0",
+    "allure-playwright": "^3.0.0-beta.6",
+    "moment": "2.29.1",
+    "pdf-parse": "1.1.1",
+    "winston": "^3.4.0",
+    "xlsx": "^0.17.5"
+  }
+}
