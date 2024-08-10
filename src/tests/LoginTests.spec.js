@@ -14,7 +14,7 @@ const invalidPassword   = ExcelUtil.readColumnValueFromExcel(testDataFilePath, "
 const expectedErrorMsg  = ExcelUtil.readColumnValueFromExcel(testDataFilePath, "LoginTest", "ErrorMessage", 2);
 
 test.describe('Login Tests', () => {
-    test.only('User can login with valid credentials', async ({ page }) => {
+    test('User can login with valid credentials', async ({ page }) => {
         const loginStepObj = new LoginSteps(page);
         const login = new loginPage(page);
         await login.navigate("");
