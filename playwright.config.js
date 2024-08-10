@@ -29,9 +29,7 @@ const config = {
     }],
     ['html', { open: 'never', outputFolder: "./test-results/report" }],
     ["./src/logger/TestListener.js"],
-    process.env.CI ? ["junit", {
-      outputFile: "results.xml"
-    }] : ["json", {
+    ["json", {
       outputFile: "report.json"
     }]
   ],   
