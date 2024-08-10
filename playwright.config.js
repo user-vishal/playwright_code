@@ -1,9 +1,9 @@
-import { PlaywrightTestConfig, devices } from '@playwright/test';
+import { devices } from '@playwright/test';
 
 /**
  * @see https://playwright.dev/docs/test-configuration
  */
-const config = PlaywrightTestConfig = {
+const config = {
   testDir: './src/tests',
   testMatch: ["tests/LoginTests.spec.js"],
   outputDir: "./test-results/failure",
@@ -11,25 +11,10 @@ const config = PlaywrightTestConfig = {
   expect: {
     timeout: 5000
   },
-  fullyParallel: !true,
+  fullyParallel: false,
   forbidOnly: !!process.env.CI,
   retries: process.env.CI ? 1 : 0,
   workers: process.env.CI ? 1 : 2,
-  reporter: process.env.CI ? [["junit", {
-    outputFile: "results.xml"
-  }]] : [["json", {
-    outputFile: "report.json"
-  }], ["html", {
-    open: "on-failure"
-  }]],
-  // use: {
-  //   baseURL: 'https://dev.truckman4.com/',
-  //   headless: false,
-  //   trace: 'on-first-retry',
-  //   screenshot: 'only-on-failure',
-  //   video: 'retain-on-failure',
-  //   downloadsPath: "./test-results/downloads",
-  // },
   use: {
     baseURL: 'https://dev.truckman4.com/',
     headless: process.env.CI ? true : false,
@@ -44,6 +29,11 @@ const config = PlaywrightTestConfig = {
     }],
     ['html', { open: 'never', outputFolder: "./test-results/report" }],
     ["./src/Logger/TestListener.js"],
+    process.env.CI ? ["junit", {
+      outputFile: "results.xml"
+    }] : ["json", {
+      outputFile: "report.json"
+    }]
   ],   
   projects: [
     {
