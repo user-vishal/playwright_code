@@ -1,7 +1,7 @@
 const { test} = require('@playwright/test');
 
-import LoginSteps from '../steps/LoginSteps.js';
-import LoginBuilder from '../builder/LoginBuilder.js';
+import LoginSteps from '../steps/loginSteps.js';
+import LoginBuilder from '../builder/loginBuilder.js';
 import ExcelUtil from '../utils/ExcelUtil';
 import { testDataFilePath } from '../constants/Constants';
 const loginPage = require('../pages/loginPage');
