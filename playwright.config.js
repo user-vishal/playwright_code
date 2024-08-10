@@ -28,7 +28,7 @@ const config = {
       outputFolder: 'allure-results' 
     }],
     ['html', { open: 'never', outputFolder: "./test-results/report" }],
-    ["./src/Logger/TestListener.js"],
+    ["./src/logger/TestListener.js"],
     process.env.CI ? ["junit", {
       outputFile: "results.xml"
     }] : ["json", {
