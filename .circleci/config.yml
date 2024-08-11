@@ -24,6 +24,8 @@ jobs:
           command: npm run test
       - store_test_results:
           path: report.json
+      - store_artifacts:
+          path: report.json
       - run:
           name: Send Results to Elasticsearch
           command: node sendResults.js
