@@ -17,6 +17,9 @@ jobs:
             npx playwright install chrome
             npx playwright install msedge
       - run:
+          name: Install Elasticsearch Client
+          command: npm install @elastic/elasticsearch
+      - run:
           name: Run tests
           command: npm run test
       - store_test_results:
