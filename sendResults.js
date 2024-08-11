@@ -1,31 +1,31 @@
 const fs = require('fs');
 const { Client } = require('@elastic/elasticsearch');
-
-// Elasticsearch client setup
-const client = new Client({ node: 'http://localhost:9200' }); // Adjust the node URL if needed
-
-// Read test results
-const results = JSON.parse(fs.readFileSync('report.json'));
+const client = new Client({ node: 'http://localhost:9200' });
 
 async function sendResults() {
-  for (const suite of results.suites) {
-    for (const test of suite.tests) {
-      const body = {
-        testName: test.title, // Adjust according to the structure of your report.json
-        status: test.status, // Adjust if needed
-        duration: test.duration, // Ensure this field is correctly mapped
-        startTime: new Date(test.startTime).toISOString(), // Convert to ISO string if necessary
-        endTime: new Date(test.endTime).toISOString(), // Convert to ISO string if necessary
-        // Add any other relevant fields based on your test result structure
-      };
+    const data = JSON.parse(fs.readFileSync('report.json', 'utf8'));
 
-      await client.index({
-        index: 'playwright-test-results', // The index name you created
-        body,
-      });
+    for (const suite of data.suites) {
+        for (const subSuite of suite.suites) {
+            for (const spec of subSuite.specs) {
+                for (const test of spec.tests) {
+                    const testData = {
+                        testName: spec.title,
+                        status: test.results[0].status,
+                        duration: test.results[0].duration,
+                        startTime: test.results[0].startTime,
+                    };
+
+                    await client.index({
+                        index: 'playwright-test-results',
+                        body: testData,
+                    });
+
+                    console.log(`Sent result for test: ${spec.title}`);
+                }
+            }
+        }
     }
-  }
-  console.log('Test results sent to Elasticsearch');
 }
 
-sendResults().catch(console.log);
+sendResults().catch(console.error);
