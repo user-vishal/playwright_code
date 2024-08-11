@@ -1,6 +1,6 @@
 const fs = require('fs');
 const { Client } = require('@elastic/elasticsearch');
-const client = new Client({ node: 'http://localhost:9200' });
+const client = new Client({ node: 'http://localhost:9300' });
 
 async function sendResults() {
     const data = JSON.parse(fs.readFileSync('report.json', 'utf8'));
