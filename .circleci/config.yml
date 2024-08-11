@@ -20,7 +20,10 @@ jobs:
           name: Run tests
           command: npm run test
       - store_test_results:
-          path: results.xml
+          path: report.json
+      - run:
+          name: Send Results to Elasticsearch
+          command: node sendResults.js
 
 # Invoke jobs via workflows
 workflows:
