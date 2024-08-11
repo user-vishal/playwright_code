@@ -8,20 +8,22 @@ const client = new Client({ node: 'http://localhost:9200' }); // Adjust the node
 const results = JSON.parse(fs.readFileSync('report.json'));
 
 async function sendResults() {
-  for (const test of results.suites) {
-    const body = {
-      testName: test.name,
-      status: test.status,
-      duration: test.duration,
-      startTime: test.startTime,
-      endTime: test.endTime,
-      // Add any other relevant fields based on your test result structure
-    };
+  for (const suite of results.suites) {
+    for (const test of suite.tests) {
+      const body = {
+        testName: test.title, // Adjust according to the structure of your report.json
+        status: test.status, // Adjust if needed
+        duration: test.duration, // Ensure this field is correctly mapped
+        startTime: new Date(test.startTime).toISOString(), // Convert to ISO string if necessary
+        endTime: new Date(test.endTime).toISOString(), // Convert to ISO string if necessary
+        // Add any other relevant fields based on your test result structure
+      };
 
-    await client.index({
-      index: 'playwright-test-results', // The index name you created
-      body,
-    });
+      await client.index({
+        index: 'playwright-test-results', // The index name you created
+        body,
+      });
+    }
   }
   console.log('Test results sent to Elasticsearch');
 }
