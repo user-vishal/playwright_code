@@ -1,6 +1,18 @@
 const fs = require('fs');
+// const { Client } = require('@elastic/elasticsearch');
+// const client = new Client({ node: 'https://localhost:9200' });
+
 const { Client } = require('@elastic/elasticsearch');
-const client = new Client({ node: 'https://localhost:9200' });
+const client = new Client({
+  node: 'https://192.168.100.20:9200',
+  auth: {
+    username: 'elastic',
+    password: 'uRXG4Buiu0OcJ523rqeM'
+  },
+  ssl: {
+    rejectUnauthorized: false // This is to ignore SSL certificate validation errors
+  }
+});
 
 async function sendResults() {
     const data = JSON.parse(fs.readFileSync('report.json', 'utf8'));
