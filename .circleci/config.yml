@@ -31,7 +31,7 @@ jobs:
       - run:
           name: Check Elasticsearch connectivity
           command: |
-            curl -X GET "https://192.168.100.20:9200/_cluster/health?pretty" -u elastic:your_password -k
+            curl -X GET "https://192.168.100.20:9200/_cluster/health?pretty" -u elastic:uRXG4Buiu0OcJ523rqeM -k
       - run:
           name: Send Results to Elasticsearch
           command: node sendResults.js
