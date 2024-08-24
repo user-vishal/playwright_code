@@ -12,7 +12,7 @@ const client = new Client({
   ssl: {
     rejectUnauthorized: false
   },
-  requestTimeout: 60000 // Set timeout to 60 seconds (adjust as needed)
+  requestTimeout: 120000 // Increased timeout
 });
 
 async function sendResults() {
