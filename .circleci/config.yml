@@ -31,7 +31,7 @@ jobs:
       - run:
           name: Check Elasticsearch connectivity
           command: |
-            curl -X GET "https://localhost:9200/_cluster/health?pretty" -u elastic:uRXG4Buiu0OcJ523rqeM -k
+            curl -X GET "https://8a8c-103-16-29-205.ngrok-free.app/_cluster/health?pretty" -u elastic:uRXG4Buiu0OcJ523rqeM -k
       - run:
           name: Send Results to Elasticsearch
           command: node sendResults.js
