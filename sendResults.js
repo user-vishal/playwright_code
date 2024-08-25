@@ -4,7 +4,7 @@ const fs = require('fs');
 
 const { Client } = require('@elastic/elasticsearch');
 const client = new Client({
-  node: 'https://192.168.100.20:9200',
+  node: 'https://localhost:9200',
   auth: {
     username: 'elastic',
     password: 'uRXG4Buiu0OcJ523rqeM'

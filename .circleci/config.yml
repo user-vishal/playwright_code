@@ -25,13 +25,13 @@ jobs:
           path: report.json
       - store_artifacts:
           path: report.json
-      - run:
-          name: Test Internet Connectivity
-          command: curl -I https://www.google.com
+      # - run:
+      #     name: Test Internet Connectivity
+      #     command: curl -I https://www.google.com
       - run:
           name: Check Elasticsearch connectivity
           command: |
-            curl -X GET "https://192.168.100.20:9200/_cluster/health?pretty" -u elastic:uRXG4Buiu0OcJ523rqeM -k
+            curl -X GET "https://localhost:9200/_cluster/health?pretty" -u elastic:uRXG4Buiu0OcJ523rqeM -k
       - run:
           name: Send Results to Elasticsearch
           command: node sendResults.js
