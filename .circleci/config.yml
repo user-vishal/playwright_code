@@ -22,15 +22,18 @@ jobs:
           path: report.json
       - store_artifacts:
           path: report.json
-      - run:
-          name: Install AWS CLI
-          command: |
-            apt-get update
-            apt-get install -y awscli
-      - run:
-          name: Upload report.json to S3
-          command: |
-            aws s3 cp report.json s3://mycircleci/report.json
+      # - run:
+      #     name: Install AWS CLI
+      #     command: |
+      #       apt-get update
+      #       apt-get install -y awscli
+      # - run:
+      #     name: Upload report.json to S3
+      #     command: |
+      #       aws s3 cp report.json s3://mycircleci/report.json
+      - aws-cli/install
+      - aws-cli/s3 cp:
+          arguments: report.json s3://mycircleci/report.json
 
 workflows:
   run-test-workflow:
