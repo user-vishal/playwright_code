@@ -8,7 +8,7 @@ jobs:
       - run:
           name: Download dependency
           environment:
-            SECRET_KEY: SECRET_KEY 
+            SECRET_KEY: SECRET_KEY
           command: npm ci
       - run:
           name: Install Playwright Browsers
@@ -16,25 +16,21 @@ jobs:
             npx playwright install chrome
             npx playwright install msedge
       - run:
-          name: Install Elasticsearch Client
-          command: npm install @elastic/elasticsearch
-      - run:
           name: Run tests
           command: npm run test
       - store_test_results:
           path: report.json
       - store_artifacts:
           path: report.json
-      # - run:
-      #     name: Test Internet Connectivity
-      #     command: curl -I https://www.google.com
       - run:
-          name: Check Elasticsearch connectivity
+          name: Install AWS CLI
           command: |
-            curl -X GET "https://8a8c-103-16-29-205.ngrok-free.app/_cluster/health?pretty" -u elastic:uRXG4Buiu0OcJ523rqeM -k
+            apt-get update
+            apt-get install -y awscli
       - run:
-          name: Send Results to Elasticsearch
-          command: node sendResults.js
+          name: Upload report.json to S3
+          command: |
+            aws s3 cp report.json s3://mycircleci/report.json
 
 workflows:
   run-test-workflow:
