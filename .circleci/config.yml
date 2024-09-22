@@ -28,8 +28,8 @@ jobs:
       - run:
           name: Install unzip (required for AWS CLI)
           command: |
-            sudo apt-get update
-            sudo apt-get install -y unzip
+            apt-get update
+            apt-get install -y unzip  # Remove sudo, since you're likely running as root
       - aws-cli/install  # AWS CLI installation step
       - run:
           name: Upload report.json to S3
